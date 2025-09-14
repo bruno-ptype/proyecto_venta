@@ -20,6 +20,7 @@ public class Examen_POO1 {
         System.out.println("###############################");
         
         Scanner leer = new Scanner (System.in);
+        ListadoColaboradores arreglo = new ListadoColaboradores();
         
         
         int opciones;
@@ -72,24 +73,27 @@ public class Examen_POO1 {
                             System.out.println("Ingrese el simbolo solicitado");
                         }
                         Colaborador colab = new Colaborador(RUT, Nombre,Genero, Cargo, Departamento,sueldoBase, estado, fechaTexto1,fechaTexto);
+                        arreglo.insertarColaborador(RUT, Nombre, Genero, Cargo, Departamento, sueldoBase, estado, fechaTexto1, fechaTexto);
                         break;
                     }
                     case 2 -> {
                         Colaborador colab1 = new Colaborador(); 
                         System.out.println("Ingrese el RUT del colaborador");
                         String RutIngresado = leer.nextLine();
+                        
                         colab1.buscarColaborador(RutIngresado);
                         break;
                     }
                     case 3 -> {
-                        Colaborador colab1 = new Colaborador(); 
+                        Colaborador colab2 = new Colaborador(); 
                         System.out.println("Ingrese el RUT del colaborador");
                         String RutIngresado = leer.nextLine();
-                        colab1.eliminarColaborador1(RutIngresado, opciones);
+                        colab2.eliminarColaborador1(RutIngresado, opciones);
                         break;
                     }
                     case 4 -> {
-                        System.out.println("Listado de colaboradores: ");
+                        System.out.println("Bienvenido a listado de colaboradores: ");
+                        arreglo.mostrasLista();
                         break;
                     }
                 

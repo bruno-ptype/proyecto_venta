@@ -62,7 +62,7 @@ public class Colaborador {
         try{
             this.fechaIngreso= LocalDate.parse(fechaTexto1, formatter);
             this.fechaNacimiento = LocalDate.parse(fechaTexto, formatter);
-            this.edad = (int) ChronoUnit.YEARS.between(fechaNacimiento, LocalDate.now());
+            this.edad = (int) ChronoUnit.YEARS.between(LocalDate.now(), fechaNacimiento);
     } catch (Exception e) {
         System.out.println("Error al parsear fechas: " + e.getMessage());
         this.edad = -1;
@@ -174,13 +174,13 @@ public class Colaborador {
     }
     
     public void mostrar(){
-        System.out.println("Fecha de registro: " + fechaHoy);
-        System.out.println("\n RUT : " + RUT + " || ");
-        System.out.println("\n Nombre : " + Nombre + " || ");
-        System.out.println("\n Edad : " + edad + " || ");
-        System.out.println("\n Genero : " + Genero + " || ");
-        System.out.println("\n Departamento : " + Departamento + " || ");
-        System.out.println("\n Sueldo : " + sueldoLiquido() + " || ");
+        System.out.printf("Fecha de registro: " + fechaHoy);
+        System.out.printf(" RUT : " + RUT + " || ");
+        System.out.printf(" Nombre : " + Nombre + " || ");
+        System.out.printf(" Edad : " + edad + " || ");
+        System.out.printf(" Genero : " + Genero + " || ");
+        System.out.printf(" Departamento : " + Departamento + " || ");
+        System.out.printf(" Sueldo : " + sueldoLiquido() + " || ");
     }
     
     public double sueldoLiquido(){
@@ -218,12 +218,22 @@ public class Colaborador {
     }
    */
     public void eliminarColaborador1(String RutIngresado, int decision){
-        if(RutIngresado.equals(this.RUT)){
+        if(RutIngresado == null || this.RUT == null){
+            System.out.println("RUT no puede ser nulo");
+            return;
+        }
+        if(limpiarRut(RutIngresado).equals(limpiarRut(this.RUT))){
             System.out.println("Desea eliminar a: " + Nombre + "?");
             System.out.println("Ingrese (1) para Si/ (2) para No");
+            if(leer == null){
+                leer = new Scanner (System.in);
+            }
             decision = leer.nextInt();
             if(decision == 1){
                 estado = 0;
+                System.out.println("colaborador eliminado.");
+            }else{
+                System.out.println("operacion cancelada");
             }
         }else{
             System.out.println("Ingrese un RUT valido");
@@ -232,7 +242,7 @@ public class Colaborador {
     
     public static String formatearRUT(String RutSinFormato){
             String Cuerpo = RutSinFormato.substring(0, RutSinFormato.length()-1);
-            String dv = RutSinFormato.substring(0, RutSinFormato.length()-1);
+            String dv = RutSinFormato.substring(RutSinFormato.length()-1);
             
             StringBuilder cuerpoFormateado = new StringBuilder();   
             int contador = 0;
